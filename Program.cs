@@ -14,7 +14,7 @@ namespace Algorithm
         }
     }
 
-    public class _1_1OddEven
+    public class A_1_1_OddEven
     {
         public string solution(int num)
         {
@@ -23,7 +23,7 @@ namespace Algorithm
         }
     }
 
-    public class _1_2Average
+    public class A_1_2_Average
     {
         public double solution(int[] arr)
         {
@@ -39,7 +39,7 @@ namespace Algorithm
         }
     }
 
-    public class _1_3ciphers
+    public class A_1_3_ciphers
     {
         public int solution(int n)
         {
@@ -49,6 +49,25 @@ namespace Algorithm
                 answer += n % 10;
                 n /= 10;
             }
+            return answer;
+        }
+    }
+
+    public class A_1_4_aliquot
+    {
+        public int solution(int n)
+        {
+            if (n > 0)
+            {
+                int sum = 1 + n;
+                for (int i = 2; i < n; i++)
+                {
+                    if (n % i == 0) sum += i;
+                }
+                return sum;
+            }
+
+            return 0;
         }
     }
 }
