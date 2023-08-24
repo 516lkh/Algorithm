@@ -30,7 +30,7 @@ namespace Algorithm
             if (arr.Length == 0) { return 0; }
 
             double average = 0;
-            foreach(int i in arr)
+            foreach (int i in arr)
             {
                 average += (double)i;
             }
@@ -75,12 +75,25 @@ namespace Algorithm
     {
         public int solution(int n)
         {
-            for(int i = 2; i < n; i++)
+            for (int i = 2; i < n; i++)
             {
                 if (n % i == 1) return i;
             }
 
             return -1;
+        }
+    }
+
+    public class A_1_6_termx
+    {
+        public long[] solution(int x, int n)
+        {
+            long[] answer = new long[n];
+            for (int i = 0; i < n; i++)
+            {
+                answer[i] = (long)x * (i + 1);
+            }
+            return answer;
         }
     }
 }
