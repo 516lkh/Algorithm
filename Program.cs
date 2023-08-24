@@ -59,8 +59,8 @@ namespace Algorithm
         {
             if (n > 0)
             {
-                int sum = 1 + n;
-                for (int i = 2; i < n; i++)
+                int sum = 0;
+                for (int i = 1; i <= n; i++)
                 {
                     if (n % i == 0) sum += i;
                 }
@@ -68,6 +68,19 @@ namespace Algorithm
             }
 
             return 0;
+        }
+    }
+
+    public class A_1_5_remainder1
+    {
+        public int solution(int n)
+        {
+            for(int i = 2; i < n; i++)
+            {
+                if (n % i == 1) return i;
+            }
+
+            return -1;
         }
     }
 }
