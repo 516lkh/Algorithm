@@ -165,7 +165,7 @@ namespace Algorithm
                 sum += x % 10;
                 x /= 10;
             }
-            Console.WriteLine(sum);
+
             if (_x % sum == 0) return true;
             return false;
 
