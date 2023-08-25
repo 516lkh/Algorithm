@@ -113,4 +113,12 @@ namespace Algorithm
             return answer;
         }
     }
+
+    public class A_1_8_parseint
+    {
+        public int solution(string s)
+        {
+            return int.Parse(s); ;
+        }
+    }
 }
