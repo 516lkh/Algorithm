@@ -10,7 +10,7 @@ namespace Algorithm
     {
         public static void Main(string[] args)
         {
-
+            Console.WriteLine(A_1_11_harshadnumber.solution(11));
         }
     }
 
@@ -118,7 +118,58 @@ namespace Algorithm
     {
         public int solution(string s)
         {
-            return int.Parse(s); ;
+            return int.Parse(s);
+        }
+    }
+
+    public class A_1_9_squareroot
+    {
+        public static long solution(long n)
+        {
+            for (long answer = 1; answer * answer <= n; answer++)
+            {
+                if (answer * answer == n) return (long)((answer + 1) * (answer + 1));
+            }
+            return (long)-1;
+        }
+    }
+
+    public class A_1_10_descendingorder
+    {
+        public static long solution(long n)
+        {
+
+            int[] ints = new int[n.ToString().Length];
+            for (int i = 0; i < ints.Length; i++) { ints[i] = (int)(n % 10); n /= 10; }
+
+            Array.Sort(ints);
+            Array.Reverse(ints);
+
+            string s = "";
+            for (int i = 0; i < ints.Length; i++) { s += ints[i].ToString(); Console.Write(ints[i]); }
+
+            return long.Parse(s);
+
+        }
+    }
+
+    public class A_1_11_harshadnumber
+    {
+        public static bool solution(int x)
+        {
+            int _x = x;
+            int sum = 0;
+
+            for(int i = 0; i < _x.ToString().Length; i++)
+            {
+                sum += x % 10;
+                x /= 10;
+            }
+            Console.WriteLine(sum);
+            if (_x % sum == 0) return true;
+            return false;
+
+
         }
     }
 }
