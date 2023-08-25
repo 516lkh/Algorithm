@@ -96,4 +96,21 @@ namespace Algorithm
             return answer;
         }
     }
+
+    public class A_1_7_naturalnumberarray
+    {
+        public int[] solution(long n)
+        {
+            string number = n.ToString();
+            int[] answer = new int[number.Length];
+
+            for (int i = 0; i < number.Length; i++)
+            {
+                answer[i] = (int)(n % 10);
+                n /= 10;
+            }
+
+            return answer;
+        }
+    }
 }
