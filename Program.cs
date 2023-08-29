@@ -191,7 +191,6 @@ namespace Algorithm
     {
         public static int solution(int num)
         {
-            int answer = 0;
             for(int i=0; i < 500; i++)
             {
                 if (num == 1) return i;
