@@ -172,4 +172,33 @@ namespace Algorithm
 
         }
     }
+
+    public class A_1_12_intsum
+    {
+        public static long solution(int a, int b)
+        {
+            long answer = a;
+            while (a != b)
+            {
+                a = a > b ? a - 1 : a + 1;
+                answer += a;
+            }
+            return answer;
+        }
+    }
+
+    public class A_1_13_Collatz
+    {
+        public static int solution(int num)
+        {
+            int answer = 0;
+            for(int i=0; i < 500; i++)
+            {
+                if (num == 1) return i;
+                num = (num % 2 == 0) ? num / 2 : num * 3 + 1;
+            }
+
+            return -1;
+        }
+    }
 }
