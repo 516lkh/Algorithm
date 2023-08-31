@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Pipes;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,9 +12,9 @@ namespace Algorithm
     {
         public static void Main(string[] args)
         {
-            int[] arr = A_1_19_Remove_smallest_number.solution(new int[] { 1, 2, 3, 4, 5 });
-            foreach (int i in arr) { Console.Write(i); }
-            Console.WriteLine();
+            int[] arr = A_1_15_divisor.solution(new int[] { 1, 2, 3, 4 }, 2);
+            //foreach (int i in arr) { Console.Write(i); }
+            Console.WriteLine(A_1_26_basic_string.solution("1234"));
         }
     }
 
@@ -25,7 +26,6 @@ namespace Algorithm
             else return "Odd";
         }
     }
-
     public class A_1_2_Average
     {
         public double solution(int[] arr)
@@ -41,7 +41,6 @@ namespace Algorithm
             else return average / arr.Length;
         }
     }
-
     public class A_1_3_ciphers
     {
         public int solution(int n)
@@ -55,7 +54,6 @@ namespace Algorithm
             return answer;
         }
     }
-
     public class A_1_4_aliquot
     {
         public int solution(int n)
@@ -73,7 +71,6 @@ namespace Algorithm
             return 0;
         }
     }
-
     public class A_1_5_remainder1
     {
         public int solution(int n)
@@ -86,7 +83,6 @@ namespace Algorithm
             return -1;
         }
     }
-
     public class A_1_6_termx
     {
         public long[] solution(int x, int n)
@@ -99,7 +95,6 @@ namespace Algorithm
             return answer;
         }
     }
-
     public class A_1_7_naturalnumberarray
     {
         public int[] solution(long n)
@@ -116,7 +111,6 @@ namespace Algorithm
             return answer;
         }
     }
-
     public class A_1_8_parseint
     {
         public int solution(string s)
@@ -124,7 +118,6 @@ namespace Algorithm
             return int.Parse(s);
         }
     }
-
     public class A_1_9_squareroot
     {
         public static long solution(long n)
@@ -136,7 +129,6 @@ namespace Algorithm
             return (long)-1;
         }
     }
-
     public class A_1_10_descendingorder
     {
         public static long solution(long n)
@@ -155,7 +147,6 @@ namespace Algorithm
 
         }
     }
-
     public class A_1_11_harshadnumber
     {
         public static bool solution(int x)
@@ -175,7 +166,6 @@ namespace Algorithm
 
         }
     }
-
     public class A_1_12_intsum
     {
         public static long solution(int a, int b)
@@ -189,7 +179,6 @@ namespace Algorithm
             return answer;
         }
     }
-
     public class A_1_13_Collatz
     {
         public static int solution(int num)
@@ -203,7 +192,6 @@ namespace Algorithm
             return -1;
         }
     }
-
     public class A_1_14_Kim
     {
         public string solution(string[] seoul)
@@ -216,7 +204,6 @@ namespace Algorithm
             return "";
         }
     }
-
     public class A_1_15_divisor
     {
         public static int[] solution(int[] arr, int divisor)
@@ -232,17 +219,11 @@ namespace Algorithm
                 }
             }
 
-            int[] answer = new int[list.Count];
+            if (list.Count == 0) return new int[] { -1 };
 
-            for (int i = 0; i < list.Count; i++)
-            {
-                answer[i] = list[i];
-            }
-
-            return answer;
+            return list.ToArray();
         }
     }
-
     public class A_1_16_YinYang
     {
         public static int solution(int[] absolutes, bool[] signs)
@@ -269,7 +250,6 @@ namespace Algorithm
             return new string(answer);
         }
     }
-
     public class A_1_18_numbers
     {
         public int solution(int[] numbers)
@@ -291,7 +271,6 @@ namespace Algorithm
             return numberArray.Except(numbers).Sum();
         }
     }
-
     public class A_1_19_Remove_smallest_number
     {
         public static int[] solution(int[] arr)
@@ -300,4 +279,133 @@ namespace Algorithm
             return arr.Except(new int[] { arr.Min() }).ToArray();
         }
     }
+    public class A_1_20_center
+    {
+        public string solution(string s)
+        {
+            string answer = "";
+            answer = (s.Length % 2 == 0) ? s.Substring(s.Length / 2 - 1, 2) : s.Substring(s.Length / 2, 1);
+            return answer;
+        }
+    }
+    public class A_1_21_subak
+    {
+        public string solution(int n)
+        {
+            string answer = "";
+
+            for(int i = 0; i < n; i++)
+            {
+                answer += (i % 2 == 0) ? "수" : "박";
+            }
+
+            return answer;
+        }
+    }
+    public class A_1_22_inner_product
+
+    {
+        public int solution(int[] a, int[] b)
+        {
+            int answer = 0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                answer += a[i] * b[i];
+            }
+            return answer;
+        }
+    }
+    public class A_1_23_aliquot
+    {
+        public int solution(int left, int right)
+        {
+            int answer = 0;
+            for(int i = left; i <= right; i++)
+            {
+                answer = (findaliquotnumber(i) % 2 == 0) ? answer + i : answer - i;
+            }
+            return answer;
+        }
+
+        public int findaliquotnumber(int n)
+        {
+            int count = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                if (n % i == 0) { count++; }
+            }
+            return count;
+        }
+    }
+    public class A_1_24_string_descending_order
+    {
+        public string solution(string s)
+        {
+            char[] answer = s.ToCharArray();
+            Array.Sort(answer);
+            Array.Reverse(answer);
+            return new string(answer);
+        }
+    }
+    public class A_1_25_less_price
+    {
+        public long solution(int price, int money, int count)
+        {
+            long total = 0;
+            for(int j = 1; j <= count; j++)
+            {
+                total += (long)(price * j);
+
+            }
+
+            if (total <= money) return 0;
+            return (long)(total - money);
+        }
+    }
+    public class A_1_26_basic_string
+    {
+        public static bool solution(string s)
+        {
+            int tmp;
+
+            if (s.Length ==4 || s.Length == 6) {
+                return int.TryParse(s, out tmp);
+            }
+
+            return false;
+        }
+    }
+    public class A_1_27_array_addiction
+    {
+        public int[,] solution(int[,] arr1, int[,] arr2)
+        {
+            int[,] answer = new int[arr1.GetLength(0),arr1.GetLength(1)];
+            
+            for(int i = 0; i < arr2.GetLength(0); i++)
+            {
+                for(int j=0; j < arr2.GetLength(1); j++)
+                {
+                    answer[i, j] = arr1[i, j] + arr2[i, j];
+                }
+            }
+
+            return answer;
+        }
+    }
+    public class A_1_28_rectangle_star
+    {
+    //    String[] s;
+
+    //    Console.Clear();
+    //    s = Console.ReadLine().Split(' ');
+
+    //    int a = Int32.Parse(s[0]);
+    //    int b = Int32.Parse(s[1]);
+    //    for(int i = 0; i<b; i++){
+    //        for(int j=0;j<a;j++){
+    //            Console.Write("*");
+    //        }
+    //Console.WriteLine();
+    }
+
 }
