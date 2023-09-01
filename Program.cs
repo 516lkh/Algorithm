@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO.Pipes;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,9 @@ namespace Algorithm
     {
         public static void Main(string[] args)
         {
-            int[] arr = A_1_15_divisor.solution(new int[] { 1, 2, 3, 4 }, 2);
+            //int[] arr = A_1_29_greatestDivisor_LeastMultiple.solution(12,8);
             //foreach (int i in arr) { Console.Write(i); }
-            Console.WriteLine(A_1_26_basic_string.solution("1234"));
+            Console.WriteLine(A_1_30_ternary_scale.solution(45));
         }
     }
 
@@ -407,5 +408,73 @@ namespace Algorithm
     //        }
     //Console.WriteLine();
     }
+    public class A_1_29_greatestDivisor_LeastMultiple
+    {
+        public static int[] solution(int n, int m)
+        {
+            int greatestDivisor=1;
 
+            int ntmp = n;
+            int mtmp = m;
+
+            List<int> Divisors = new List<int>();
+            int divisor = 2;
+
+
+            while ((divisor < n / 2 || divisor < m / 2))
+            {
+                if(ntmp % divisor == 0 && mtmp % divisor == 0)
+                {
+                    Divisors.Add(divisor);
+                    ntmp /= divisor;
+                    mtmp /= divisor;
+                    divisor = 1;
+                }
+                divisor++;
+            }
+
+            if (Divisors.Count == 0)
+            {
+                return new int[] { 1, n * m };
+            }
+
+            foreach(int i in Divisors)
+            {
+                greatestDivisor *= i;
+            }
+
+            return new int[] { greatestDivisor, greatestDivisor * ntmp * mtmp };
+        }
+    }
+    public class A_1_30_ternary_scale
+    {
+        public static int solution(int n)
+        {
+            string ts = "";
+            int ntmp = n;
+            while (ntmp >= 3)
+            {
+                ts += (ntmp % 3).ToString();
+                ntmp /= 3;
+            }
+            ts += (ntmp % 3).ToString();
+
+            Console.WriteLine(ts);
+
+            char[] chars = ts.ToCharArray();
+            Array.Reverse(chars);
+            ts = new string(chars);
+
+            Console.WriteLine(ts);
+            double answer = 0;
+
+            for(int i=0; i<ts.Length; i++)
+            {
+                answer += (double)int.Parse(ts.Substring(i, 1)) * Math.Pow((double)3, (double)i);
+            }
+
+
+            return (int)answer;
+        }
+    }
 }
