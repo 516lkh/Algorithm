@@ -177,4 +177,31 @@ namespace Algorithm
 
         }
     }
+    class P_2_K번째수
+    {
+        public int[] solution(int[] array, int[,] commands)
+        {
+            int[] answer = new int[commands.GetLength(0)];
+
+            int[] tmp;
+            int startIndex, endIndex, length; 
+
+            for(int i = 0; i < commands.GetLength(0); i++)
+            {
+                startIndex = commands[i, 0] - 1;
+                endIndex = commands[i, 1] - 1;
+                length = commands[i, 1] - commands[i, 0]+1;
+
+                tmp = new int[length];
+
+                Array.Copy(array, startIndex, tmp, 0, length);
+                Array.Sort(tmp);
+
+                answer[i] = tmp[commands[i, 2]-1];
+            }
+
+
+            return answer;
+        }
+    }
 }

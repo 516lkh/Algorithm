@@ -22,10 +22,10 @@ namespace Algorithm
 
         public static void Test()
         {
+            P_2_K번째수 a = new P_2_K번째수();
 
+            a.solution(new int[] { 1, 5, 2, 6, 3, 7, 4 }, new int[,] { { 2, 5, 3 }, { 4, 4, 1 }, { 1, 7, 3 } });
 
         }
     }
-
-    
 }
