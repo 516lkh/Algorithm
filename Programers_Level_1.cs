@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Pipes;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -892,6 +895,301 @@ namespace Algorithm
             int day = date1[2] - date2[2];
 
             return year*28*12 + month*28 + day;
+        }
+    }
+    class P_1_달리기_경주
+    {
+        public string[] solution(string[] players, string[] callings)
+        {
+            Dictionary<string, int> playerRanks = new Dictionary<string, int>();
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                playerRanks.Add(players[i], i);
+            }
+
+            for (int i = 0; i < callings.Length; i++)
+            {
+                int rank = playerRanks[callings[i]];
+                string overtake = players[rank - 1];
+
+                players[rank - 1] = callings[i];
+                players[rank] = overtake;
+
+                playerRanks[callings[i]] = rank - 1;
+                playerRanks[overtake] = rank;
+            }
+            return players;
+        }
+    }
+    class P_1_공원_산책
+    {
+        public int[] solution(string[] park, string[] routes)
+        {
+            int w = park[0].Length;
+            int h = park.Length;
+            int x = 0;
+            int y = 0;
+
+            for (int i = 0; i < h; i++)
+            {
+                for (int j = 0; j < w; j++)
+                {
+                    if (park[i][j] == 'S')
+                    {
+                        x = j;
+                        y = i;
+                        break;
+                    }
+                }
+            }
+
+            for (int i = 0; i < routes.Length; i++)
+            {
+                int tempX = x;
+                int tempY = y;
+
+                if (routes[i][0] == 'N')
+                {
+                    tempY -= routes[i][2] - '0';
+                }
+                else if (routes[i][0] == 'S')
+                {
+                    tempY += routes[i][2] - '0';
+                }
+                else if (routes[i][0] == 'W')
+                {
+                    tempX -= routes[i][2] - '0';
+                }
+                else if (routes[i][0] == 'E')
+                {
+                    tempX += routes[i][2] - '0';
+                }
+
+                if (tempX < w && tempX > -1 && tempY < h && tempY > -1)
+                {
+                    bool check = true;
+
+                    if (tempX > x)
+                    {
+                        for (int j = x; j <= tempX; j++)
+                        {
+                            if (park[y][j] == 'X')
+                            {
+                                check = false;
+                                break;
+                            }
+                        }
+                    }
+                    else if (tempX < x)
+                    {
+                        for (int j = tempX; j <= x; j++)
+                        {
+                            if (park[y][j] == 'X')
+                            {
+                                check = false;
+                                break;
+                            }
+                        }
+                    }
+                    else if (tempY > y)
+                    {
+                        for (int j = y; j <= tempY; j++)
+                        {
+                            if (park[j][x] == 'X')
+                            {
+                                check = false;
+                                break;
+                            }
+                        }
+                    }
+                    else if (tempY < y)
+                    {
+                        for (int j = tempY; j <= y; j++)
+                        {
+                            if (park[j][x] == 'X')
+                            {
+                                check = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (check == true)
+                    {
+                        x = tempX;
+                        y = tempY;
+                    }
+                }
+
+            }
+
+            int[] answer = new int[2] { y, x };
+            return answer;
+        }
+    }
+    class P_1_신고_결과_받기
+    {
+        public int[] solution(string[] id_list, string[] report, int k)
+        {
+            Dictionary<string, List<string>> reportedIds = new Dictionary<string, List<string>>();
+            Dictionary<string, int> reportedCount = new Dictionary<string, int>();
+
+            report = report.Distinct().ToArray();
+
+            for (int i = 0; i < report.Length; i++)
+            {
+                string[] reportSplit = report[i].Split(' ');
+                string reportId = reportSplit[0];
+                string reportedId = reportSplit[1];
+
+                if (reportedIds.ContainsKey(reportId))
+                    reportedIds[reportId].Add(reportedId);
+                else
+                    reportedIds.Add(reportId, new List<string> { reportedId });
+
+                if (reportedCount.ContainsKey(reportedId))
+                    reportedCount[reportedId]++;
+                else
+                    reportedCount.Add(reportedId, 1);
+            }
+
+
+            List<int> answerList = new List<int>();
+
+            for (int i = 0; i < id_list.Length; i++)
+            {
+                int sendCount = 0;
+
+                if (reportedIds.ContainsKey(id_list[i]))
+                {
+                    for (int j = 0; j < reportedIds[id_list[i]].Count; j++)
+                    {
+                        string reportedId = reportedIds[id_list[i]][j];
+                        if (reportedCount.ContainsKey(reportedId))
+                        {
+                            if (reportedCount[reportedId] >= k)
+                            {
+                                sendCount++;
+                            }
+                        }
+                    }
+                }
+
+                answerList.Add(sendCount);
+            }
+
+            int[] answer = answerList.ToArray();
+
+            return answer;
+
+        }
+    }
+    class P_1_최댓값과_최솟값
+    {
+        public string solution(string s)
+        {
+            string answer = "";
+            
+            string[] strings = s.Split(' ');
+            int[] ints = new int[strings.Length];
+
+            int max, min;
+
+            for(int i = 0; i < ints.Length; i++)
+            {
+                ints[i] = int.Parse(strings[i]);
+            }
+
+            max = ints.Max(); min = ints.Min();
+            answer += min.ToString() + " " + max.ToString();
+
+            return answer;
+        }
+    }
+    class P_1_JadenCase
+    {
+        public string solution(string s)
+        {
+            string answer = "";
+            bool J = false;
+
+            for(int i=0; i < s.Length; i++)
+            {
+
+                if (J == true || i==0)
+                {
+                    if (s[i] <= 122 && s[i] >= 97)
+                    {
+                        answer += (char)(s[i] - 32);
+                    }
+                    else answer += s[i];
+
+                }
+                else if(s[i] <= 90 && s[i] >= 65)
+                {
+                    answer += (char)(s[i] + 32);
+                }
+                else answer += s[i];
+                J = false;
+                
+
+                if (s[i] == ' ')
+                {
+                    J = true;
+                    continue;
+                }
+            }
+            return answer;
+        }
+    }
+    class P_1_이진변환_반복하기
+    {
+        public int[] solution(string s)
+        {
+            int[] answer = new int[2];
+
+            while (s!="1")
+            {
+                string tmp = "";
+                for(int i = 0; i < s.Length; i++)
+                {
+                    if (s[i] == '1')
+                    {
+                        tmp += '1';
+                    }
+                    else if (s[i] == '0')
+                    {
+                        answer[1]++;
+                    }
+                }
+
+                s = tmp;
+
+                if (s == "1") break;
+
+                s = Convert.ToString(s.Length, 2);
+                answer[0]++;
+            }
+            answer[0]++;
+
+            return answer;
+        }
+    }
+    class P_1_피보나치수
+    {
+        public int solution(int n)
+        {
+            return pib(0, 1, n);
+        }
+
+        public int pib(int n1, int n2, int count)
+        {
+            if (count == 0) return n1;
+            if (count == 1) return n2;
+            if (count == 2) return (n1 + n2) % 1234567;
+
+            return pib(n2, (n1 + n2) % 1234567, count - 1);
         }
     }
 }
