@@ -73,4 +73,44 @@ namespace Algorithm
             return "";
         }
     }
+
+    public class Day3_01
+    {
+        public static void Main()
+        {
+            String[] s;
+
+            Console.Clear();
+            s = Console.ReadLine().Split(' ');
+
+            int a = Int32.Parse(s[0]);
+            int b = Int32.Parse(s[1]);
+            for (int i = 0; i < b; i++)
+            {
+                for (int j = 0; j < a; j++)
+                {
+                    Console.Write("*");
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+
+    public class Day3_02
+    {
+        public int solution(int k, int m, int[] score)
+        {
+            int answer = 0;
+            int index = m - 1;
+            Array.Sort(score);
+            Array.Reverse(score);
+
+            for (int i = 0; i < score.Length / m; i++)
+            {
+                answer += score[index] * m;
+                index += m;
+            }
+            return answer;
+        }
+    }
 }
