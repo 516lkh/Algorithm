@@ -113,4 +113,74 @@ namespace Algorithm
             return answer;
         }
     }
+
+    public class Day4_01
+    {
+        public int solution(int[] ingredient)
+        {
+            int answer = 0;
+
+            List<int> list = new List<int>();
+
+            for (int i = 0; i < ingredient.Length; i++)
+            {
+                list.Add(ingredient[i]);
+
+                if (list.Count >= 4)
+                {
+
+                    if (list[list.Count - 1] == 1
+                        && list[list.Count - 2] == 3
+                        && list[list.Count - 3] == 2
+                        && list[list.Count - 4] == 1)
+                    {
+                        list.RemoveRange(list.Count - 4, 4);
+                        answer++;
+
+                    }
+
+                }
+
+            }
+
+            return answer;
+        }
+    }
+
+    public class Day4_02
+    {
+        public int solution(string[] want, int[] number, string[] discount)
+        {
+            int answer = 0;
+
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+
+            for (int i = 0; i < want.Length; i++)
+            {
+                dic[want[i]] = 0;
+            }
+
+            for (int j = 0; j < discount.Length - 9; j++)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if(dic.ContainsKey(discount[j + i])) dic[discount[j + i]]++;
+                }
+
+                for(int i = 0; i < want.Length; i++)
+                {
+                    if (dic[want[i]] < number[i]) break;
+                    else if (i == want.Length - 1) answer++; 
+                }
+
+                for (int i = 0; i < want.Length; i++)
+                {
+                    dic[want[i]] = 0;
+                }
+            }
+
+            return answer;
+        }
+    }
+    
 }
