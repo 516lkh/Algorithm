@@ -182,5 +182,66 @@ namespace Algorithm
             return answer;
         }
     }
-    
+
+    public class Day5_01
+    {
+        public int solution(int n)
+        {
+            int answer = 0;
+            while (n > 0)
+            {
+                answer *= 3;
+                answer += n % 3;
+                n /= 3;
+            }
+            return answer;
+
+        }
+    }
+
+    public class Day5_02
+    {
+        public string solution(string[] survey, int[] choices)
+        {
+            string answer = "";
+
+            int length = survey.Length;
+
+            Dictionary<char, int> dictionary = new Dictionary<char, int>();
+            dictionary.Add('R', 0);
+            dictionary.Add('T', 0);
+            dictionary.Add('C', 0);
+            dictionary.Add('F', 0);
+            dictionary.Add('J', 0);
+            dictionary.Add('M', 0);
+            dictionary.Add('A', 0);
+            dictionary.Add('N', 0);
+
+
+
+            for (int i = 0; i < length; i++)
+            {
+                char type1 = survey[i][0];
+                char type2 = survey[i][1];
+
+                if (choices[i] < 4)
+                {
+                    dictionary[type1] += 4 - choices[i];
+                }
+                else if (choices[i] > 4)
+                {
+                    dictionary[type2] += choices[i] - 4;
+                }
+            }
+
+
+            answer += (dictionary['R'] >= dictionary['T']) ? "R" : "T";
+            answer += (dictionary['C'] >= dictionary['F']) ? "C" : "F";
+            answer += (dictionary['J'] >= dictionary['M']) ? "J" : "M";
+            answer += (dictionary['A'] >= dictionary['N']) ? "A" : "N";
+
+
+            return answer;
+        }
+    }
 }
