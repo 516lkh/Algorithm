@@ -244,4 +244,46 @@ namespace Algorithm
             return answer;
         }
     }
+
+    public class Day6_01
+    {
+        public long solution(int price, int money, int count)
+        {
+            long total = 0;
+            for (int j = 1; j <= count; j++)
+            {
+                total += (long)(price * j);
+
+            }
+
+            if (total <= money) return 0;
+            return (long)(total - money);
+        }
+    }
+
+    public class Day6_02
+    {
+        public int[] solution(int k, int[] score)
+        {
+            int[] answer = new int[score.Length];
+            List<int> board = new List<int>();
+
+            for (int i = 0; i < score.Length; i++)
+            {
+                if (board.Count == k)
+                {
+                    if (board[0] > score[i])
+                    {
+                        answer[i] = board[0];
+                        continue;
+                    }
+                    board.RemoveAt(0);
+                }
+                board.Add(score[i]);
+                board.Sort();
+                answer[i] = board[0];
+            }
+            return answer;
+        }
+    }
 }
