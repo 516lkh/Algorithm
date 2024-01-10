@@ -286,4 +286,108 @@ namespace Algorithm
             return answer;
         }
     }
+
+    public class Day7_01
+    {
+        public int[] solution(int[] lottos, int[] win_nums)
+        {
+            int[] answer = new int[2];
+
+            for (int i = 0; i < lottos.Length; i++)
+            {
+                for (int j = 0; j < win_nums.Length; j++)
+                {
+                    if (lottos[i] == win_nums[j]) { answer[1]++; answer[0]++; break; }
+                    if (lottos[i] == 0)
+                    {
+                        answer[0]++;
+                        break;
+                    }
+                }
+            }
+
+            for (int i = 0; i < answer.Length; i++)
+            {
+                if (answer[i] == 6) answer[i] = 1;
+                else if (answer[i] == 5) answer[i] = 2;
+                else if (answer[i] == 4) answer[i] = 3;
+                else if (answer[i] == 3) answer[i] = 4;
+                else if (answer[i] == 2) answer[i] = 5;
+                else answer[i] = 6;
+            }
+            return answer;
+        }
+    }
+
+    public class Day8_01
+    {
+        public int[] solution(int[] lottos, int[] win_nums)
+        {
+            int[] answer = new int[2];
+
+            for (int i = 0; i < lottos.Length; i++)
+            {
+                for (int j = 0; j < win_nums.Length; j++)
+                {
+                    if (lottos[i] == win_nums[j]) { answer[1]++; answer[0]++; break; }
+                    if (lottos[i] == 0)
+                    {
+                        answer[0]++;
+                        break;
+                    }
+                }
+            }
+
+            for (int i = 0; i < answer.Length; i++)
+            {
+                if (answer[i] == 6) answer[i] = 1;
+                else if (answer[i] == 5) answer[i] = 2;
+                else if (answer[i] == 4) answer[i] = 3;
+                else if (answer[i] == 3) answer[i] = 4;
+                else if (answer[i] == 2) answer[i] = 5;
+                else answer[i] = 6;
+            }
+            return answer;
+        }
+    }
+
+    public class Day8_02
+    {
+        public int solution(int k, int[] tangerine)
+        {
+            int answer = 0;
+            int n = 0;
+            int count = 1;
+            List<int> list = new List<int>(10000000);
+            Array.Sort(tangerine);
+            for (int i = 0; i < tangerine.Length; i++)
+            {
+                if (n == tangerine[i])
+                {
+                    count++;
+                }
+                else
+                {
+                    if (tangerine[i] == 0) continue;
+                    list.Add(count);
+                    count = 1;
+                }
+                n = tangerine[i];
+            }
+            list.Add(count);
+            list.Sort();
+            list.Reverse();
+            foreach (int i in list)
+            {
+                Console.Write(i);
+            }
+            foreach (int index in list)
+            {
+                if (k <= 0) break;
+                answer++;
+                k -= index;
+            }
+            return answer;
+        }
+    }
 }
