@@ -390,4 +390,55 @@ namespace Algorithm
             return answer;
         }
     }
+
+
+    public class Day9_01
+    {
+        public long solution(int n)
+        {
+            int answer = 0;
+            int a = 0;
+            int b = 1;
+
+            while (n > 0)
+            {
+                answer = (a + b) % 1234567;
+                a = b;
+                b = answer;
+                --n;
+            }
+
+            return answer;
+        }
+    }
+
+    public class Day9_02
+    {
+        public int[] solution(string s)
+        {
+            char[] str = s.ToCharArray();
+            int[] answer = new int[s.Length];
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                for (int j = i - 1; j >= -1; j--)
+                {
+                    if (j == -1)
+                    {
+                        answer[i] = -1;
+                    }
+                    else
+                    {
+                        if (str[i] == str[j])
+                        {
+                            answer[i] = i - j;
+                            break;
+                        }
+                    }
+                }
+
+            }
+            return answer;
+        }
+    }
 }
