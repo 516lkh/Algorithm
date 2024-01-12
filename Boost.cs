@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -439,6 +440,103 @@ namespace Algorithm
 
             }
             return answer;
+        }
+    }
+
+    public class Day10_01
+    {
+        List<int> result;
+        public int solution(int[] numbers, int target)
+        {
+            int answer = 0;
+
+            result = new List<int>();
+
+            FindTarget(numbers, 0, target, 0);
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                if (result[i] == target) answer++;
+            }
+
+            return answer;
+        }
+
+        public void FindTarget(int[] numbers, int index, int targetNumber, int currentValue)
+        {
+            if (index == numbers.Length)
+            {
+                result.Add(currentValue);
+            }
+            else
+            {
+                int currentValue1 = currentValue + numbers[index];
+                FindTarget(numbers, index + 1, targetNumber, currentValue1);
+                int currentValue2 = currentValue - numbers[index];
+                FindTarget(numbers, index + 1, targetNumber, currentValue2);
+            }
+        }
+    }
+
+    public class Day10_02
+    {
+        public int solution(int n, int k)
+        {
+            int answer = 0;
+
+            string str = Base10toBaseK(n, k);
+
+            string[] strArr = str.Split('0');
+
+            foreach (string split in strArr)
+            {
+                Console.WriteLine();
+                Console.Write(split);
+                if (split != "")
+                    if (isPrime(double.Parse(split)))
+                        answer++;
+            }
+
+            return answer;
+        }
+
+        public string Base10toBaseK(int N, int K)
+        {
+            string str = "";
+
+            while (N > 0)
+            {
+                str += (N % K).ToString();
+                N /= K;
+            }
+
+            char[] chars = str.ToCharArray();
+            Array.Reverse(chars);
+
+            return new string(chars);
+        }
+
+        public double BaseKtoBase10(string N, int K)
+        {
+            double result = 0;
+
+            for(int i=0; i < N.Length; i++)
+            {
+                result += Char.GetNumericValue(N[N.Length-1-i]) * Math.Pow(K, i);
+            }
+
+            return result;
+        }
+
+        public bool isPrime(double num)
+        {
+            if (num <= 1) return false;
+
+            for (int i = 2; i <= Math.Sqrt(num); i++)
+            {
+                if (num % i == 0) return false;
+            }
+            return true;
         }
     }
 }
